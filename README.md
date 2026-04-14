@@ -15,6 +15,7 @@ Sistema de Gestión Médica para administrar: médicos, pacientes, turnos, espec
 | Base de datos | MySQL             |
 | Autenticación | JWT               |
 | Documentación | Swagger           |
+| Testing       | Bruno             |
 | Seguridad     | CORS              |
 | Validación    | express-validator |
 | Logs          | Morgan            |
