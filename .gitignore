@@ -1,24 +1,15 @@
-# Dependencias y Build
 node_modules/
-dist/
-build/
-
-# Variables de entorno
 .env
-.env.local
-
-# Logs y archivos temporales
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-notas.txt
-
-# Archivos de subida
-src/uploads/*
-!src/uploads/.gitkeep
-
-# Sistema y Editores
-.DS_Store
 .vscode/
 .idea/
-*.log
+*.swp
+*.swo
+dist/
+build/
+.DS_Store
+src/uploads/*
+!src/uploads/.gitkeep
