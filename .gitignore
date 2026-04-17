@@ -10,3 +10,6 @@ yarn-error.log*
 *.swo
 dist/
 build/
+.DS_Store
+src/uploads/*
+!src/uploads/.gitkeep

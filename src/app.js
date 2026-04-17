@@ -1,11 +1,14 @@
-const express = require("express");
-const cors = require("cors");
-const morgan = require("morgan");
-require("dotenv").config({ path: "./config/.env" });
+import "dotenv/config";
+import express from "express";
+import morgan from "morgan";
+import cors from "cors";
+import { testConnection } from "./db/connection.js";
+import { corsOptions } from "./config/cors.config.js";
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(morgan("dev"));
 app.use(express.json());
 
@@ -15,8 +18,16 @@ app.get("/api/status", (req, res) => {
     .json({ status: "ok", message: "API funcionando correctamente" });
 });
 
-const PORT = process.env.PORT || 3000;
+const startServer = async() => {
+  try{
+    await testConnection();
 
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
-});
+    app.listen(PORT, () => {
+      console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    });
+
+  }catch (error){
+    console.log("Error al iniciar el servidor", error.message);
+  }
+};
+startServer();
