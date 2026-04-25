@@ -1,16 +1,26 @@
-*Notas sobre la Clase Práctica - 07/04/2026*
+*Notas sobre la Clase Práctica - 07/04/2026 link https://www.youtube.com/watch?v=PDHBWaqt\_kg*
+
+
+
+*notas Clase Teórica-Práctica 09/04/2026  link https://www.youtube.com/watch?v=yrzCePNDRaw*
+
+
 
 *presentación del tfi y sus lineamientos*
-
-*link https://www.youtube.com/watch?v=PDHBWaqt\_kg*
 
 
 
 *Registro de turnos* (min 25:30)
 
-**Sobre la tabla turnos\_reservas:** 
+**Sobre la tabla turnos\_reservas:**
 
 Para registrar turnos se necesita de la tabla médicos y la tabla pacientes, por eso en la tabla turnos\_reservas están los atributos de id\_medico y id\_paciente.
+
+min 1:35 *Clase Teórica-Práctica 09/04/2026*
+
+*se agrego el campo id\_obra\_social (para el cual se hace la reserva del turno, con este campo vas a poder tener la historia de cual es la reserva ej un paciente pide un turno y tiene tal obra social y después de 1 año pide otro turno y cambia la obra social se va a poder buscar con este campo, aunque la relación paciente obra social sea otra)*
+
+
 
 
 
@@ -26,7 +36,7 @@ para la tabla médicos hay una tabla relacional entre médicos y obra sociales
 
 
 
-**sobre la tabla pacientes** (min 26:49) 
+**sobre la tabla pacientes** (min 26:49)
 
 tiene un id\_usuario y un id\_obra\_social
 
@@ -37,6 +47,12 @@ el paciente va a tener solo 1 obra social
 **sobre la tabla medicos\_obras\_sociales** (min 27:10)
 
 relación n a m entre médicos  y obras\_sociales
+
+*min 2:10 Clase Teórica-Práctica 09/04/2026*
+
+se agrego el campo es particular del tipo tinyInt que representa si es particular o no la obra social (esto sirve para hacer el calculo del valor total del turno)
+
+
 
 
 
@@ -50,19 +66,19 @@ relación n a m entre médicos  y obras\_sociales
 
 en esta tala se centraliza la información que podría ser común a ambos para no tener que ponerla en cada tabla, esos campos son documento, apellido, nombres, email, contrasenia
 
-*rol* es un tinyInt que busca indicar que tipo de usuario 0 = medico, 1= paciente, 2 = administrador
+*rol* es un tinyInt que busca indicar que tipo de usuario 1 = medico, 2= paciente, 3 = administrador
 
 *activo* = indica si el usuario esta activo o no en la aplicación.
 
 min 44:40
 
-la relación usuarios-médicos, usuarios-pacientes es de 1 a 1, ya que un usuario puede ser o 1 medico o un paciente pero no ambos a la vez. 
+la relación usuarios-médicos, usuarios-pacientes es de 1 a 1, ya que un usuario puede ser o 1 medico o un paciente pero no ambos a la vez.
 
 
 
 
 
-**sobre el calculo del valor de la consulta:** (min 29:34) 
+**sobre el calculo del valor de la consulta:** (min 29:34)
 
 se puede hacer un trigger o hacerlo desde el back.
 
@@ -159,6 +175,10 @@ los tipos de datos que estarán en la bbdd son uicamente los presentados en las 
 **sobre los extras que se deben entregar**
 
 hay una lista de ejemplos según el que elijamos ese extra puede hacer que terminemos modificando el script de la bbdd para agregar esa funcionalidad
+
+min 8:50 *Clase Teórica-Práctica 09/04/2026*
+
+si algún grupo desea hacer el registro de los pacientes tener en cuenta que tiene que usar el rol paciente
 
 
 
