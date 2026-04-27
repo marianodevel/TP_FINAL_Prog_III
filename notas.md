@@ -91,6 +91,8 @@ se debería hacer desde el back
 **sobre v\_medicos y v\_pacientes:** (min 32:38)
 
 son vistas de datos que vamos a usar recurrentemente, por ej la lista de pacientes (es un select que tiene joins)
+Clase Teórica-Práctica 09/04/2026 min 44:30
+debido al diseño de la bbdd conseguir informacion de los pacientes (es decir todos sus atributos) implica relacionar la tabla usuarios y la tabla pacientes razon por la cual se crea la tabla v_medicos con el objetivo de tener toda esa informacion y solo hacer una SELECT a la vista en lugar de las 2 tablas.
 
 
 
@@ -180,6 +182,35 @@ min 8:50 *Clase Teórica-Práctica 09/04/2026*
 
 si algún grupo desea hacer el registro de los pacientes tener en cuenta que tiene que usar el rol paciente
 
+# CLASE DE REPASO SQL
+**indice o index** : Es una estructura de datos que apunta a la ubicación física de las filas. En lugar de buscar en toda la tabla, el motor de la base de datos consulta el índice (que es mucho más pequeño) y va directo a la información.
+
+Ventaja: La velocidad de las consultas (SELECT) aumenta drásticamente.
+
+Desventaja: Las operaciones de escritura (INSERT, UPDATE, DELETE) son un poco más lentas porque la base de datos tiene que actualizar el índice cada vez que cambias algo.
+
+**unique** : es una regla (constraint) que le pones a una columna para asegurar que no haya dos filas con el mismo valor en esa columna.
+
+Su función: Evitar duplicados. Por ejemplo, en una tabla de usuarios, el email o el DNI deberían ser UNIQUE.
+
+Diferencia con la Primary Key: Una tabla solo puede tener una Primary Key, pero puede tener muchas columnas con la restricción Unique. Además, a diferencia de la clave primaria, una columna Unique suele permitir valores nulos (NULL), a menos que especifiques lo contrario.
+
+**motor de almacenamiento**: el usado por catedra es *InnoDB*, ya que soporte transacciones, niega que se borren datos si estan vinculados con otros, tiene restricciones de bbdd.
+
+Clase Teórica-Práctica 09/04/2026 min 36:45
+por alguna razon cuando usas unique en phpmyadmin haciendo click en el casillero no lo toma por lo que deberias copiar el codigo que te da el crear tabla y colocarlo de forma manual 
+
+consejo: el tipo de dato delimita las operaciones que se podra hacer con el dato por lo que a la hora de pensar en su tipo hayq ue pensar en el diseño y cuestionjrase que se busca hacer con ese dato.
+
+**sobre importar archivos sql**
+Clase Teórica-Práctica 09/04/2026 min 44:50
+tienes que crear la bbdd en phpmyadmin preferentemente con el mismo nombre que va a tener el archivo sql, en los archivos sql siempre dice la codificacion de caracteres que tenes que seguir si vas a importar el archivo en clase se usa utf8mb4_unicode_ci
+tienes que importar el archivo prog3_turnos.sql que se dio para el tfi
+
+**sobre el rol del administrador**
+Clase Teórica-Práctica 09/04/2026 min 51:25
+Listar, crear y editar especialidades.
+vamos a  dejar la consulta para luego pasarla al backend
 
 
 &#x20;
