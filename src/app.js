@@ -4,6 +4,7 @@ import morgan from "morgan";
 import cors from "cors";
 import { testConnection } from "./db/connection.js";
 import { corsOptions } from "./config/cors.config.js";
+import routerEspecialidades from "./rutas/especialidades.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,6 +18,8 @@ app.get("/api/status", (req, res) => {
     .status(200)
     .json({ status: "ok", message: "API funcionando correctamente" });
 });
+
+app.use("/api", routerEspecialidades);
 
 const startServer = async() => {
   try{
