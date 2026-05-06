@@ -1,4 +1,3 @@
-// import pool from "../db/connection.js";
 import EspecialidadesRepository from "../db/repositories/especialidades.repository.js";
 
 export default class EspecialidadesService {
