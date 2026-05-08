@@ -8,6 +8,6 @@ const router = express.Router();
 
 router.use("/status", routerStatus);
 router.use("/especialidades", routerEspecialidades);
-// router.use("/obras-sociales", routerObrasSociales);
+router.use("/obras-sociales", routerObrasSociales);
 
 export default router;
