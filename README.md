@@ -39,8 +39,8 @@ npm install
 
 3. Configurar variables de entorno:
 
-   * Crear un archivo `.env` o `.env.local`
-   * Copiar el contenido de `.env.example`
+   * Generar un archivo `.env` a partir de `.env.example`
+   * Completar las variables requeridas para la ejecución del proyecto.
 
 4. Ejecutar el proyecto:
 
