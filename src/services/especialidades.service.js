@@ -1,40 +1,27 @@
-import pool from "../db/connection.js";
+import EspecialidadesRepository from "../db/repositories/especialidades.repository.js";
 
-export const getAllEspecialidades = async () => {
-  const [rows] = await pool.query(
-    "SELECT * FROM prog3_turnos.especialidades WHERE activo = 1"
-  );
-  return rows;
-};
+export default class EspecialidadesService {
+  constructor() {
+    this.especialidades = new EspecialidadesRepository();
+  }
 
-export const getEspecialidadById = async (id) => {
-  const [rows] = await pool.query(
-    "SELECT * FROM prog3_turnos.especialidades WHERE id_especialidad = ? AND activo = 1",
-    [id]
-  );
-  return rows[0];
-};
+  getAllEspecialidades = async () => {
+    return await this.especialidades.getAllEspecialidades();
+  };
 
-export const createEspecialidad = async (nombre) => {
-  const [result] = await pool.query(
-    "INSERT INTO prog3_turnos.especialidades (nombre) VALUES (?)",
-    [nombre]
-  );
-  return result.insertId;
-};
+  getEspecialidadById = async (id) => {
+    return this.especialidades.getEspecialidadById(id);
+  };
 
-export const updateEspecialidad = async (id, nombre) => {
-  const [result] = await pool.query(
-    "UPDATE prog3_turnos.especialidades SET nombre = ? WHERE id_especialidad = ? AND activo = 1",
-    [nombre, id]
-  );
-  return result.affectedRows;
-};
+  createEspecialidad = async (nombre) => {
+    return this.especialidades.createEspecialidad(nombre);
+  };
 
-export const deleteEspecialidad = async (id) => {
-  const [result] = await pool.query(
-    "UPDATE prog3_turnos.especialidades SET activo = 0 WHERE id_especialidad = ?",
-    [id]
-  );
-  return result.affectedRows;
-};
+  updateEspecialidad = async (id, nombre) => {
+    return this.especialidades.updateEspecialidad(id, nombre);
+  };
+
+  deleteEspecialidad = async (id) => {
+    return this.especialidades.deleteEspecialidad(id);
+  };
+}

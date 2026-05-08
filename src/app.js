@@ -1,23 +1,23 @@
-import express from 'express';
+import "dotenv/config";
+import express from "express";
+import morgan from "morgan";
 import cors from 'cors';
 import { corsOptions } from './config/cors.config.js';
 import { testConnection } from './db/connection.js';
-import routerStatus from './routes/status.js'; 
-import routerEspecialidades from './routes/especialidades.js';
-import routerObrasSociales from './routes/obras_sociales.js';
-import { validateContentType } from './middleware/validateContentType.js';
+import routes from './routes/v1/index.js';
+import { validateContentType } from './middlewares/validateContentType.js';
+
 
 const app = express();
 
-const PORT = process.env.PORT || 3005;
+const PORT = process.env.PORT || 3000;
 
+app.use(morgan("dev"));
 app.use(cors(corsOptions));
 app.use(validateContentType);
 app.use(express.json());
 
-app.use('/', routerStatus); 
-app.use('/', routerEspecialidades);
-app.use('/', routerObrasSociales);
+app.use('/api/v1', routes); 
 
 const startServer = async () => {
   try {

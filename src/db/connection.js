@@ -9,6 +9,10 @@ export const testConnection = async () => {
   try {
     connection = await pool.getConnection();
     console.log("Conectado a la base de datos");
+
+    const [result] = await connection.query("SELECT NOW() AS hora_servidor, DATABASE() AS base_datos");
+    console.table(result);
+
   } catch (error) {
     console.log("No se pudo conectar a la base de datos:", error.message);
     process.exit(1);
