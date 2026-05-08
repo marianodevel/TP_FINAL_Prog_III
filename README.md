@@ -28,7 +28,7 @@ Sistema de Gestión Médica para administrar: médicos, pacientes, turnos, espec
 1. Clonar el repositorio:
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/marianodevel/TP_FINAL_Prog_III
 ```
 
 2. Instalar dependencias:
