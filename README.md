@@ -39,8 +39,23 @@ npm install
 
 3. Configurar variables de entorno:
 
-   * Generar un archivo `.env` a partir de `.env.example`
-   * Completar las variables requeridas para la ejecución del proyecto.
+     Crear un archivo `.env`
+    
+```bash
+PORT=3000
+NODE_ENV=development
+
+FRONTEND_URL=
+
+DB_HOST=
+DB_PORT=
+DB_NAME=
+DB_USER=
+DB_PASSWORD=
+
+JWT_EXPIRES_IN=
+JWT_SECRET=
+```
 
 4. Ejecutar el proyecto:
 
