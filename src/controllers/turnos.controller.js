@@ -1,11 +1,16 @@
 import * as turnosService from "../services/turnos.service.js";
 import * as pacientesService from "../services/pacientes.service.js";
 import * as medicosService from "../services/medicos.service.js";
+import { toTurnoDTO } from "../dtos/turno.dto.js";
 
 export const getAll = async (req, res) => {
   try {
     const turnos = await turnosService.getAllTurnos();
-    res.status(200).json({ estado: true, msg: "OK", data: turnos });
+    res.status(200).json({
+      estado: true,
+      msg: "OK",
+      data: turnos.map(toTurnoDTO),
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ estado: false, msg: "Error interno del servidor" });
@@ -23,14 +28,17 @@ export const getOne = async (req, res) => {
         .json({ estado: false, msg: "Turno no encontrado" });
     }
 
-    res.status(200).json({ estado: true, msg: "OK", data: turno });
+    res.status(200).json({
+      estado: true,
+      msg: "OK",
+      data: toTurnoDTO(turno),
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ estado: false, msg: "Error interno del servidor" });
   }
 };
 
-// Médico lista sus propios turnos
 export const getMisTurnosMedico = async (req, res) => {
   try {
     const { id_usuario } = req.usuario;
@@ -43,14 +51,17 @@ export const getMisTurnosMedico = async (req, res) => {
     }
 
     const turnos = await turnosService.getTurnosByMedico(medico.id_medico);
-    res.status(200).json({ estado: true, msg: "OK", data: turnos });
+    res.status(200).json({
+      estado: true,
+      msg: "OK",
+      data: turnos.map(toTurnoDTO),
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ estado: false, msg: "Error interno del servidor" });
   }
 };
 
-// Paciente lista sus propios turnos
 export const getMisTurnosPaciente = async (req, res) => {
   try {
     const { id_usuario } = req.usuario;
@@ -65,14 +76,17 @@ export const getMisTurnosPaciente = async (req, res) => {
     const turnos = await turnosService.getTurnosByPaciente(
       paciente.id_paciente,
     );
-    res.status(200).json({ estado: true, msg: "OK", data: turnos });
+    res.status(200).json({
+      estado: true,
+      msg: "OK",
+      data: turnos.map(toTurnoDTO),
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ estado: false, msg: "Error interno del servidor" });
   }
 };
 
-// Médico marca un turno como atendido
 export const marcarAtendido = async (req, res) => {
   try {
     const { id_turno } = req.params;
@@ -98,7 +112,6 @@ export const marcarAtendido = async (req, res) => {
   }
 };
 
-// Paciente crea su propio turno
 export const createTurnoPaciente = async (req, res) => {
   try {
     const { id_usuario } = req.usuario;
@@ -112,7 +125,6 @@ export const createTurnoPaciente = async (req, res) => {
 
     const { id_medico, fecha_hora } = req.body;
 
-    // El paciente reserva con su propia obra social
     const result = await turnosService.createTurno({
       id_medico,
       id_paciente: paciente.id_paciente,
@@ -120,13 +132,11 @@ export const createTurnoPaciente = async (req, res) => {
       fecha_hora,
     });
 
-    res
-      .status(201)
-      .json({
-        estado: true,
-        msg: "Turno reservado correctamente",
-        data: result,
-      });
+    res.status(201).json({
+      estado: true,
+      msg: "Turno reservado correctamente",
+      data: result,
+    });
   } catch (error) {
     if (error.status) {
       return res
@@ -138,7 +148,6 @@ export const createTurnoPaciente = async (req, res) => {
   }
 };
 
-// Admin crea turno para cualquier paciente/médico
 export const createTurnoAdmin = async (req, res) => {
   try {
     const { id_medico, id_paciente, id_obra_social, fecha_hora } = req.body;
@@ -150,13 +159,11 @@ export const createTurnoAdmin = async (req, res) => {
       fecha_hora,
     });
 
-    res
-      .status(201)
-      .json({
-        estado: true,
-        msg: "Turno registrado correctamente",
-        data: result,
-      });
+    res.status(201).json({
+      estado: true,
+      msg: "Turno registrado correctamente",
+      data: result,
+    });
   } catch (error) {
     if (error.status) {
       return res

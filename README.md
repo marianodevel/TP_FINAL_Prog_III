@@ -141,6 +141,7 @@ src/
 │       ├── especialidades.repository.js
 │       ├── estadisticas.repository.js
 │       ├── medicos.repository.js
+│       ├── obras_sociales.repository.js
 │       ├── pacientes.repository.js
 │       ├── turnos.repository.js
 │       └── usuarios.repository.js
@@ -148,6 +149,11 @@ src/
 │   ├── auth.docs.js
 │   ├── especialidades.docs.js
 │   └── turnos.docs.js
+├── dtos/                         # Data Transfer Objects
+│   ├── medico.dto.js
+│   ├── paciente.dto.js
+│   ├── turno.dto.js
+│   └── usuario.dto.js
 ├── middlewares/
 │   ├── auth.middleware.js        # verificarToken, verificarRol
 │   ├── validarCampos.js          # express-validator handler
@@ -321,6 +327,35 @@ Las estadísticas se generan exclusivamente mediante stored procedures almacenad
 - Manejo centralizado de errores con códigos HTTP apropiados
 - Validaciones en todas las entradas con express-validator
 - CORS configurable por variable de entorno
+
+---
+
+## Patrones de diseño aplicados
+
+**Repository Pattern**
+Cada entidad tiene su propio repository que encapsula todo el acceso a datos. El resto de las capas nunca toca SQL directamente. Implementado en `especialidades`, `medicos`, `pacientes`, `turnos`, `obras_sociales`, `usuarios` y `estadisticas`.
+
+**Service Layer**
+Los services concentran la lógica de negocio: calcular `valor_total`, verificar conflictos de horario, orquestar transacciones entre múltiples repositories. Los controllers no toman decisiones de negocio, solo traducen HTTP a llamadas al service y devuelven la respuesta.
+
+**DTO — Data Transfer Object**
+Implementado en `src/dtos/` para las entidades de mayor riesgo de exposición. Los DTOs transforman los datos crudos de la base de datos antes de enviarlos al cliente, evitando filtrar campos internos y desacoplando la estructura de la BD de la respuesta de la API.
+
+| DTO | Responsabilidad |
+|---|---|
+| `usuario.dto.js` | Oculta contraseña y campo `activo`; aplica en login y subida de foto |
+| `medico.dto.js` | Agrupa campos planos del JOIN en subobjetos `especialidad` y `usuario`; convierte `valor_consulta` a float |
+| `paciente.dto.js` | Agrupa obra social en subobjeto; convierte `es_particular` a boolean |
+| `turno.dto.js` | Corrige el typo `atentido` → `atendido`; convierte a boolean; agrupa médico y paciente en subobjetos |
+
+**Facade**
+Los services actúan como fachada para los controllers. Por ejemplo `turnosService.createTurno()` oculta que internamente consulta médicos, pacientes, calcula el valor total, abre una transacción y escribe en la BD. El controller solo llama a una función.
+
+**Singleton**
+El pool de conexiones en `connection.js` se crea una sola vez y se exporta. Todos los repositories importan la misma instancia, garantizando que no se abran conexiones innecesarias.
+
+**Dependency Injection (manual)**
+Los repositories se instancian dentro de los services y los services dentro de los controllers. Las dependencias se reciben, no se crean en el lugar de uso.
 
 ---
 

@@ -1,4 +1,5 @@
 import * as usuariosService from "../services/usuarios.service.js";
+import { toUsuarioDTO } from "../dtos/usuario.dto.js";
 
 const handleError = (error, res) => {
   if (error.status) {
@@ -74,10 +75,18 @@ export const subirFoto = async (req, res) => {
 
     await usuariosService.actualizarFoto(id_usuario, nuevoPath);
 
+    // Devolvemos solo los campos necesarios, sin datos internos
     res.status(200).json({
       estado: true,
       msg: "Foto de perfil actualizada correctamente",
-      data: { foto_path: nuevoPath },
+      data: toUsuarioDTO({
+        id_usuario,
+        apellido: req.usuario.apellido,
+        nombres: req.usuario.nombres,
+        email: req.usuario.email,
+        rol: req.usuario.rol,
+        foto_path: nuevoPath,
+      }),
     });
   } catch (error) {
     handleError(error, res);

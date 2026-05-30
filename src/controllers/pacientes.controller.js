@@ -1,9 +1,14 @@
 import * as pacientesService from "../services/pacientes.service.js";
+import { toPacienteDTO } from "../dtos/paciente.dto.js";
 
 export const getAll = async (req, res) => {
   try {
     const pacientes = await pacientesService.getAllPacientes();
-    res.status(200).json({ estado: true, msg: "OK", data: pacientes });
+    res.status(200).json({
+      estado: true,
+      msg: "OK",
+      data: pacientes.map(toPacienteDTO),
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ estado: false, msg: "Error interno del servidor" });
@@ -21,14 +26,17 @@ export const getOne = async (req, res) => {
         .json({ estado: false, msg: "Paciente no encontrado" });
     }
 
-    res.status(200).json({ estado: true, msg: "OK", data: paciente });
+    res.status(200).json({
+      estado: true,
+      msg: "OK",
+      data: toPacienteDTO(paciente),
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ estado: false, msg: "Error interno del servidor" });
   }
 };
 
-// El paciente ve su propio perfil usando el token
 export const getMiPerfil = async (req, res) => {
   try {
     const { id_usuario } = req.usuario;
@@ -40,14 +48,17 @@ export const getMiPerfil = async (req, res) => {
         .json({ estado: false, msg: "Perfil de paciente no encontrado" });
     }
 
-    res.status(200).json({ estado: true, msg: "OK", data: paciente });
+    res.status(200).json({
+      estado: true,
+      msg: "OK",
+      data: toPacienteDTO(paciente),
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ estado: false, msg: "Error interno del servidor" });
   }
 };
 
-// Admin asocia/cambia obra social de un paciente
 export const actualizarObraSocial = async (req, res) => {
   try {
     const { id_paciente } = req.params;

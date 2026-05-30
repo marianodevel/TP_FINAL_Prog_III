@@ -1,15 +1,19 @@
 import * as medicosService from "../services/medicos.service.js";
+import { toMedicoDTO } from "../dtos/medico.dto.js";
 
 export const getAll = async (req, res) => {
   try {
-    // Permite filtrar por especialidad: GET /medicos?especialidad=1
     const { especialidad } = req.query;
 
     const medicos = especialidad
       ? await medicosService.getMedicosByEspecialidad(especialidad)
       : await medicosService.getAllMedicos();
 
-    res.status(200).json({ estado: true, msg: "OK", data: medicos });
+    res.status(200).json({
+      estado: true,
+      msg: "OK",
+      data: medicos.map(toMedicoDTO),
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ estado: false, msg: "Error interno del servidor" });
@@ -27,7 +31,11 @@ export const getOne = async (req, res) => {
         .json({ estado: false, msg: "Médico no encontrado" });
     }
 
-    res.status(200).json({ estado: true, msg: "OK", data: medico });
+    res.status(200).json({
+      estado: true,
+      msg: "OK",
+      data: toMedicoDTO(medico),
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ estado: false, msg: "Error interno del servidor" });
@@ -59,7 +67,6 @@ export const update = async (req, res) => {
   }
 };
 
-// Obras sociales de un médico
 export const getObrasSociales = async (req, res) => {
   try {
     const { id_medico } = req.params;
