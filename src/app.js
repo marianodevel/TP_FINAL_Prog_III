@@ -17,11 +17,8 @@ app.use(cors(corsOptions));
 app.use(validateContentType);
 app.use(express.json());
 
-// Servir imágenes subidas como archivos estáticos
-// Acceso: http://localhost:3000/uploads/foto_1_123456789.jpg
 app.use("/uploads", express.static("src/uploads"));
 
-// Swagger
 app.use(
   "/api/v1/docs",
   swaggerUi.serve,
@@ -32,17 +29,25 @@ app.use(
 
 app.use("/api/v1", routes);
 
-const startServer = async () => {
-  try {
-    await testConnection();
-    app.listen(PORT, () => {
-      console.log(`Servidor corriendo en http://localhost:${PORT}`);
-      console.log(`Swagger disponible en http://localhost:${PORT}/api/v1/docs`);
-    });
-  } catch (error) {
-    console.error("No se pudo iniciar el servidor:", error);
-    process.exit(1);
-  }
-};
+// Exportamos app para los tests de integración
+export default app;
 
-startServer();
+// Solo iniciamos el servidor si no estamos en modo test
+if (process.env.NODE_ENV !== "test") {
+  const startServer = async () => {
+    try {
+      await testConnection();
+      app.listen(PORT, () => {
+        console.log(`Servidor corriendo en http://localhost:${PORT}`);
+        console.log(
+          `Swagger disponible en http://localhost:${PORT}/api/v1/docs`,
+        );
+      });
+    } catch (error) {
+      console.error("No se pudo iniciar el servidor:", error);
+      process.exit(1);
+    }
+  };
+
+  startServer();
+}
