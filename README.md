@@ -92,14 +92,14 @@ npm run dev
 npm start
 ```
 
-El servidor queda disponible en `http://localhost:3000`.  
-La documentación Swagger en `http://localhost:3000/api/v1/docs`.
+El servidor estará disponible en `http://localhost:3000`.  
+La documentación Swagger estará disponible en `http://localhost:3000/api/v1/docs`.
 
 ---
 
 ## Usuarios de prueba
 
-Todos los usuarios del seed usan como contraseña la parte del email que precede al `@`.
+Todos los usuarios del seed utilizan como contraseña la parte del email que precede al `@`.
 
 | Email | Contraseña | Rol |
 |---|---|---|
@@ -377,7 +377,7 @@ Implementado en `src/dtos/` para las entidades de mayor riesgo de exposición. L
 | `turno.dto.js` | Corrige el typo `atentido` → `atendido`; convierte a boolean; agrupa médico y paciente en subobjetos |
 
 **Facade**
-Los services actúan como fachada para los controllers. Por ejemplo `turnosService.createTurno()` oculta que internamente consulta médicos, pacientes, calcula el valor total, abre una transacción y escribe en la BD. El controller solo llama a una función.
+Los services actúan como fachada para los controllers. Por ejemplo `turnosService.createTurno()` encapsula internamente la consulta de médicos y pacientes, el cálculo del valor total, la apertura de una transacción y la escritura en la base de datos. El controller invoca únicamente una función.
 
 **Singleton**
 El pool de conexiones en `connection.js` se crea una sola vez y se exporta. Todos los repositories importan la misma instancia, garantizando que no se abran conexiones innecesarias.
@@ -418,7 +418,7 @@ npm run test:watch
 
 ### Estructura de tests
 
-Los tests unitarios no requieren base de datos (usan mocks). Los tests de integración sí requieren la base de datos corriendo con el seed cargado.
+Los tests unitarios no requieren base de datos (utilizan mocks). Los tests de integración requieren la base de datos activa con el seed cargado.
 
 | Tipo | Qué cubre |
 |---|---|
@@ -434,9 +434,9 @@ Los tests unitarios no requieren base de datos (usan mocks). Los tests de integr
 
 El proyecto incluye una colección [Bruno](https://www.usebruno.com/) en la carpeta `tests/bruno/` con todos los endpoints organizados por entidad.
 
-Para usarla:
-1. Abrís Bruno
-2. Abrís la carpeta `tests/bruno/` como colección
-3. Seleccionás el entorno `local`
-4. Ejecutás primero el login correspondiente al rol que querés probar — el token se guarda automáticamente en la variable de entorno
-5. A partir de ahí todos los requests usan el token automáticamente
+Para utilizarla:
+1. Abrir Bruno
+2. Abrir la carpeta `tests/bruno/` como colección
+3. Seleccionar el entorno `local`
+4. Ejecutar primero el login correspondiente al rol requerido — el token se guarda automáticamente en la variable de entorno
+5. Los requests subsiguientes utilizarán el token de forma automática
