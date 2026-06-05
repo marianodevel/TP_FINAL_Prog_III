@@ -1,0 +1,25 @@
+meta {
+  name: asociarObraSocial
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{base_url}}/medicos/1/obras-sociales
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "id_obra_social": 2
+  }
+}
+
+settings {
+  encodeUrl: true
+}

@@ -1,0 +1,19 @@
+meta {
+  name: marcarAtendido
+  type: http
+  seq: 6
+}
+
+patch {
+  url: {{base_url}}/turnos/1/atendido
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_medico}}
+}
+
+settings {
+  encodeUrl: true
+}

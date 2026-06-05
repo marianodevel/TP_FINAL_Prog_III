@@ -1,0 +1,26 @@
+meta {
+  name: createPaciente
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{base_url}}/turnos/reserva
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_paciente}}
+}
+
+body:json {
+  {
+    "id_medico": 1,
+    "fecha_hora": "2026-08-02T10:00:00"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

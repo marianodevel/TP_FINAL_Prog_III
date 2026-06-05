@@ -1,0 +1,33 @@
+meta {
+  name: registrarMedico
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/usuarios/medicos
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "documento": "31000115",
+    "apellido": "Gomez",
+    "nombres": "Carlos",
+    "email": "gomcar@correo.com",
+    "contrasenia": "gomcar",
+    "id_especialidad": 1,
+    "matricula": 5000,
+    "descripcion": "Médico pediatra",
+    "valor_consulta": 5000.00
+  }
+}
+
+settings {
+  encodeUrl: true
+}

@@ -1,0 +1,28 @@
+meta {
+  name: createAdmin
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/turnos
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "id_medico": 1,
+    "id_paciente": 1,
+    "id_obra_social": 1,
+    "fecha_hora": "2026-08-01T10:00:00"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

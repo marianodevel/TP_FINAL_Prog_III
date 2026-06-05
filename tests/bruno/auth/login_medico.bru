@@ -1,0 +1,28 @@
+meta {
+  name: login_medico
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "lopmar@correo.com",
+    "contrasenia": "lopmar"
+  }
+}
+
+script:post-response {
+  if (res.status === 200) {
+    bru.setEnvVar("token_medico", res.body.data.token);
+  }
+}
+
+settings {
+  encodeUrl: true
+}

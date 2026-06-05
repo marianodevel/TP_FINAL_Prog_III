@@ -1,15 +1,15 @@
 import "dotenv/config";
 import express from "express";
 import morgan from "morgan";
-import cors from 'cors';
-import { corsOptions } from './config/cors.config.js';
-import { testConnection } from './db/connection.js';
-import routes from './routes/v1/index.js';
-import { validateContentType } from './middlewares/validateContentType.js';
-
+import cors from "cors";
+import swaggerUi from "swagger-ui-express";
+import { corsOptions } from "./config/cors.config.js";
+import { swaggerSpec } from "./config/swagger.config.js";
+import { testConnection } from "./db/connection.js";
+import routes from "./routes/v1/index.js";
+import { validateContentType } from "./middlewares/validateContentType.js";
 
 const app = express();
-
 const PORT = process.env.PORT || 3000;
 
 app.use(morgan("dev"));
@@ -17,20 +17,37 @@ app.use(cors(corsOptions));
 app.use(validateContentType);
 app.use(express.json());
 
-app.use('/api/v1', routes); 
+app.use("/uploads", express.static("src/uploads"));
 
-const startServer = async () => {
-  try {
-    await testConnection();
-    
-    app.listen(PORT, () => {
-      console.log(`Servidor corriendo correctamente en http://localhost:${PORT}`);
-    });
-  } catch (error) {
-    console.error("No se pudo iniciar el servidor debido a un error en la base de datos.");
-    console.error(error);
-    process.exit(1);
-  }
-};
+app.use(
+  "/api/v1/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, {
+    customSiteTitle: "API Clínica Médica",
+  }),
+);
 
-startServer();
+app.use("/api/v1", routes);
+
+// Exportamos app para los tests de integración
+export default app;
+
+// Solo iniciamos el servidor si no estamos en modo test
+if (process.env.NODE_ENV !== "test") {
+  const startServer = async () => {
+    try {
+      await testConnection();
+      app.listen(PORT, () => {
+        console.log(`Servidor corriendo en http://localhost:${PORT}`);
+        console.log(
+          `Swagger disponible en http://localhost:${PORT}/api/v1/docs`,
+        );
+      });
+    } catch (error) {
+      console.error("No se pudo iniciar el servidor:", error);
+      process.exit(1);
+    }
+  };
+
+  startServer();
+}

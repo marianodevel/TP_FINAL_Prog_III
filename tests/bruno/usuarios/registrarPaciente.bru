@@ -1,0 +1,30 @@
+meta {
+  name: registrarPaciente
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/usuarios/pacientes
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "documento": "41000114",
+    "apellido": "Garcia",
+    "nombres": "Laura",
+    "email": "garlaur@correo.com",
+    "contrasenia": "garlaur",
+    "id_obra_social": 1
+  }
+}
+
+settings {
+  encodeUrl: true
+}

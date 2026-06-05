@@ -1,0 +1,25 @@
+meta {
+  name: actualizarObraSocial
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{base_url}}/pacientes/1/obra-social
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "id_obra_social": 2
+  }
+}
+
+settings {
+  encodeUrl: true
+}

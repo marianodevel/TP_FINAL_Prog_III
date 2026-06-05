@@ -1,0 +1,19 @@
+meta {
+  name: misReservas
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{base_url}}/turnos/mis-reservas
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_paciente}}
+}
+
+settings {
+  encodeUrl: true
+}

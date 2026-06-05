@@ -1,0 +1,19 @@
+meta {
+  name: turnos
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/reportes/turnos
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+settings {
+  encodeUrl: true
+}

@@ -1,0 +1,25 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{base_url}}/especialidades/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "nombre": "PEDIATRÍA ACTUALIZADA"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
