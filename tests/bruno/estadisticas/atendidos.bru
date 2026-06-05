@@ -1,0 +1,19 @@
+meta {
+  name: atendidos
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{base_url}}/estadisticas/atendidos
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+settings {
+  encodeUrl: true
+}

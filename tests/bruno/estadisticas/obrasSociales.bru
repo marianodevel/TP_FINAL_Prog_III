@@ -1,0 +1,19 @@
+meta {
+  name: obrasSociales
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/estadisticas/obras-sociales
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+settings {
+  encodeUrl: true
+}

@@ -1,0 +1,28 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{base_url}}/medicos/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "id_especialidad": 1,
+    "matricula": 1000,
+    "descripcion": "Médico pediatra actualizado",
+    "valor_consulta": 6000.00
+  }
+}
+
+settings {
+  encodeUrl: true
+}

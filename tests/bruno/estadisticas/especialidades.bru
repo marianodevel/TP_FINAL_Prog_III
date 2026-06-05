@@ -1,0 +1,19 @@
+meta {
+  name: especialidades
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/estadisticas/especialidades
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+settings {
+  encodeUrl: true
+}

@@ -1,0 +1,23 @@
+meta {
+  name: subirFoto
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{base_url}}/usuarios/me/foto
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:multipartForm {
+  foto: @file(/ruta/a/tu/foto.jpg)
+}
+
+settings {
+  encodeUrl: true
+}

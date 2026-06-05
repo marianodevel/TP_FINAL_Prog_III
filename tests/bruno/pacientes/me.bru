@@ -1,0 +1,19 @@
+meta {
+  name: me
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/pacientes/me
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_paciente}}
+}
+
+settings {
+  encodeUrl: true
+}

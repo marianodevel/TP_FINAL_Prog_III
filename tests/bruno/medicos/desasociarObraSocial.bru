@@ -1,0 +1,19 @@
+meta {
+  name: desasociarObraSocial
+  type: http
+  seq: 7
+}
+
+delete {
+  url: {{base_url}}/medicos/1/obras-sociales/2
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+settings {
+  encodeUrl: true
+}

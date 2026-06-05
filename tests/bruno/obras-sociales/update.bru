@@ -1,0 +1,28 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{base_url}}/obras-sociales/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "nombre": "Jerárquicos actualizado",
+    "descripcion": "Descripción actualizada",
+    "porcentaje_descuento": 12.00,
+    "es_particular": 0
+  }
+}
+
+settings {
+  encodeUrl: true
+}

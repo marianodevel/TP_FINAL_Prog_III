@@ -1,0 +1,29 @@
+meta {
+  name: registrarAdmin
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/usuarios/admins
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "documento": "51000113",
+    "apellido": "Torres",
+    "nombres": "Ana",
+    "email": "torana@correo.com",
+    "contrasenia": "torana"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

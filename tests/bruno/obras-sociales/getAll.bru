@@ -1,0 +1,19 @@
+meta {
+  name: getAll
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/obras-sociales
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+settings {
+  encodeUrl: true
+}
