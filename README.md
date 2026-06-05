@@ -193,7 +193,35 @@ src/
 scripts/
 ├── queries.sql
 └── estadisticas_sp.sql           # Stored procedures adicionales
-api-turnos/                       # Colección Bruno para testing
+tests/
+├── setup.js                      # Variables de entorno para Jest
+├── helpers/
+│   ├── token.helper.js           # Generadores de JWT por rol
+│   └── db.helper.js              # Limpieza de datos y cierre de conexión
+├── unit/
+│   ├── dtos/
+│   │   ├── turno.dto.test.js
+│   │   ├── medico.dto.test.js
+│   │   ├── paciente.dto.test.js
+│   │   └── usuario.dto.test.js
+│   └── services/
+│       └── turnos.service.test.js
+├── integration/
+│   ├── auth.test.js
+│   ├── especialidades.test.js
+│   └── turnos.test.js
+└── bruno/                        # Colección Bruno para pruebas manuales
+    ├── environments/
+    │   └── local.bru
+    ├── auth/
+    ├── especialidades/
+    ├── obras-sociales/
+    ├── medicos/
+    ├── pacientes/
+    ├── turnos/
+    ├── usuarios/
+    ├── estadisticas/
+    └── reportes/
 ```
 
 ---
@@ -367,6 +395,48 @@ Adicionalmente, cualquier usuario autenticado puede subir o actualizar su foto d
 
 ---
 
+## Testing
+
+### Correr los tests
+
+```bash
+# Todos los tests
+npm test
+
+# Solo unitarios
+npm run test:unit
+
+# Solo integración
+npm run test:integration
+
+# Con reporte de cobertura
+npm run test:coverage
+
+# Modo watch
+npm run test:watch
+```
+
+### Estructura de tests
+
+Los tests unitarios no requieren base de datos (usan mocks). Los tests de integración sí requieren la base de datos corriendo con el seed cargado.
+
+| Tipo | Qué cubre |
+|---|---|
+| Unitario — DTOs | Transformaciones, tipos, campos expuestos/ocultos |
+| Unitario — Services | Lógica de negocio: cálculo valor_total, conflicto de horario |
+| Integración — Auth | Login por rol, credenciales inválidas, validaciones |
+| Integración — Especialidades | CRUD completo, control de roles, duplicados |
+| Integración — Turnos | Crear, listar, marcar atendido, validación DTO en respuesta |
+
+---
+
 ## Colección de pruebas
 
-El proyecto incluye una colección [Bruno](https://www.usebruno.com/) en la carpeta `api-turnos/` con los endpoints organizados por entidad para facilitar las pruebas durante el desarrollo.
+El proyecto incluye una colección [Bruno](https://www.usebruno.com/) en la carpeta `tests/bruno/` con todos los endpoints organizados por entidad.
+
+Para usarla:
+1. Abrís Bruno
+2. Abrís la carpeta `tests/bruno/` como colección
+3. Seleccionás el entorno `local`
+4. Ejecutás primero el login correspondiente al rol que querés probar — el token se guarda automáticamente en la variable de entorno
+5. A partir de ahí todos los requests usan el token automáticamente
