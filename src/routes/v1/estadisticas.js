@@ -4,15 +4,15 @@ import {
   verificarToken,
   verificarRol,
 } from "../../middlewares/auth.middleware.js";
+import { cache } from "../../middlewares/cache.middleware.js";
 
 const router = express.Router();
-
-// Todas las estadísticas son solo para admin
 
 router.get(
   "/especialidades",
   verificarToken,
   verificarRol(3),
+  cache("5 minutes", "estadisticas"),
   estadisticasController.especialidadesConMasTurnos,
 );
 
@@ -20,6 +20,7 @@ router.get(
   "/medicos",
   verificarToken,
   verificarRol(3),
+  cache("5 minutes", "estadisticas"),
   estadisticasController.medicosConMasTurnos,
 );
 
@@ -27,6 +28,7 @@ router.get(
   "/obras-sociales",
   verificarToken,
   verificarRol(3),
+  cache("5 minutes", "estadisticas"),
   estadisticasController.turnosPorObraSocial,
 );
 
@@ -34,14 +36,15 @@ router.get(
   "/atendidos",
   verificarToken,
   verificarRol(3),
+  cache("5 minutes", "estadisticas"),
   estadisticasController.turnosAtendidosVsPendientes,
 );
 
-// GET /estadisticas/rango?fecha_desde=2026-01-01&fecha_hasta=2026-06-30
 router.get(
   "/rango",
   verificarToken,
   verificarRol(3),
+  cache("5 minutes", "estadisticas"),
   estadisticasController.turnosPorRangoFechas,
 );
 

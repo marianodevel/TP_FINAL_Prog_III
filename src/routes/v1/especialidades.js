@@ -4,43 +4,49 @@ import {
   verificarToken,
   verificarRol,
 } from "../../middlewares/auth.middleware.js";
+import { cache, clearCache } from "../../middlewares/cache.middleware.js";
 
 const router = express.Router();
 const especialidadController = new EspecialidadController();
 
-// Paciente y admin pueden listar
 router.get(
   "/",
   verificarToken,
   verificarRol(2, 3),
+  cache("10 minutes", "especialidades"),
   especialidadController.getAll,
 );
+
 router.get(
   "/:id",
   verificarToken,
   verificarRol(2, 3),
+  cache("10 minutes", "especialidades"),
   especialidadController.getOne,
 );
 
-// Solo admin puede crear, editar y eliminar
 router.post(
   "/",
   verificarToken,
   verificarRol(3),
+  clearCache("especialidades"),
   especialidadController.create,
 );
+
 router.put(
   "/:id",
   verificarToken,
   verificarRol(3),
+  clearCache("especialidades"),
   especialidadController.update,
 );
+
 router.delete(
   "/:id",
   verificarToken,
   verificarRol(3),
+  clearCache("especialidades"),
   especialidadController.remove,
 );
 
 export default router;
-

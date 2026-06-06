@@ -6,53 +6,59 @@ import {
 } from "../../middlewares/auth.middleware.js";
 import { validacionesUpdateMedico } from "../../validators/medicos.js";
 import { validarCampos } from "../../middlewares/validarCampos.js";
+import { cache, clearCache } from "../../middlewares/cache.middleware.js";
 
 const router = express.Router();
 
-// Listar todos los médicos o filtrar por especialidad — paciente y admin
-// GET /medicos
-// GET /medicos?especialidad=1
-router.get("/", verificarToken, verificarRol(2, 3), medicosController.getAll);
+router.get(
+  "/",
+  verificarToken,
+  verificarRol(2, 3),
+  cache("5 minutes", "medicos"),
+  medicosController.getAll,
+);
 
-// Obtener un médico por id — paciente y admin
 router.get(
   "/:id_medico",
   verificarToken,
   verificarRol(2, 3),
+  cache("5 minutes", "medicos"),
   medicosController.getOne,
 );
 
-// Editar datos de un médico — solo admin
 router.put(
   "/:id_medico",
   verificarToken,
   verificarRol(3),
   validacionesUpdateMedico,
   validarCampos,
+  clearCache("medicos"),
   medicosController.update,
 );
 
-// Obras sociales de un médico — solo admin
 router.get(
   "/:id_medico/obras-sociales",
   verificarToken,
   verificarRol(3),
+  cache("5 minutes", "medicos_obras_sociales"),
   medicosController.getObrasSociales,
 );
 
-// Asociar obra social a médico — solo admin
 router.post(
   "/:id_medico/obras-sociales",
   verificarToken,
   verificarRol(3),
+  clearCache("medicos_obras_sociales"),
+  clearCache("medicos"),
   medicosController.asociarObraSocial,
 );
 
-// Desasociar obra social de médico — solo admin
 router.delete(
   "/:id_medico/obras-sociales/:id_obra_social",
   verificarToken,
   verificarRol(3),
+  clearCache("medicos_obras_sociales"),
+  clearCache("medicos"),
   medicosController.desasociarObraSocial,
 );
 

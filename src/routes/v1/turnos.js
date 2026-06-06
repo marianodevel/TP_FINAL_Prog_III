@@ -1,8 +1,15 @@
 import express from "express";
 import * as turnosController from "../../controllers/turnos.controller.js";
-import { verificarToken, verificarRol } from "../../middlewares/auth.middleware.js";
-import { validacionesTurnoPaciente, validacionesTurnoAdmin } from "../../validators/turnos.js";
+import {
+  verificarToken,
+  verificarRol,
+} from "../../middlewares/auth.middleware.js";
+import {
+  validacionesTurnoPaciente,
+  validacionesTurnoAdmin,
+} from "../../validators/turnos.js";
 import { validarCampos } from "../../middlewares/validarCampos.js";
+import { cache, clearCache } from "../../middlewares/cache.middleware.js";
 
 const router = express.Router();
 
@@ -10,21 +17,25 @@ router.get(
   "/mis-turnos",
   verificarToken,
   verificarRol(1),
-  turnosController.getMisTurnosMedico
+  cache("1 minute", "turnos"),
+  turnosController.getMisTurnosMedico,
 );
 
 router.patch(
   "/:id_turno/atendido",
   verificarToken,
   verificarRol(1),
-  turnosController.marcarAtendido
+  clearCache("turnos"),
+  clearCache("estadisticas"),
+  turnosController.marcarAtendido,
 );
 
 router.get(
   "/mis-reservas",
   verificarToken,
   verificarRol(2),
-  turnosController.getMisTurnosPaciente
+  cache("1 minute", "turnos"),
+  turnosController.getMisTurnosPaciente,
 );
 
 router.post(
@@ -33,21 +44,25 @@ router.post(
   verificarRol(2),
   validacionesTurnoPaciente,
   validarCampos,
-  turnosController.createTurnoPaciente
+  clearCache("turnos"),
+  clearCache("estadisticas"),
+  turnosController.createTurnoPaciente,
 );
 
 router.get(
   "/",
   verificarToken,
   verificarRol(3),
-  turnosController.getAll
+  cache("1 minute", "turnos"),
+  turnosController.getAll,
 );
 
 router.get(
   "/:id_turno",
   verificarToken,
   verificarRol(3),
-  turnosController.getOne
+  cache("1 minute", "turnos"),
+  turnosController.getOne,
 );
 
 router.post(
@@ -56,14 +71,18 @@ router.post(
   verificarRol(3),
   validacionesTurnoAdmin,
   validarCampos,
-  turnosController.createTurnoAdmin
+  clearCache("turnos"),
+  clearCache("estadisticas"),
+  turnosController.createTurnoAdmin,
 );
 
 router.delete(
   "/:id_turno",
   verificarToken,
   verificarRol(3),
-  turnosController.deleteTurno
+  clearCache("turnos"),
+  clearCache("estadisticas"),
+  turnosController.deleteTurno,
 );
 
 export default router;
