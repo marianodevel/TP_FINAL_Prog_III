@@ -6,7 +6,7 @@ import {
 } from "../../middlewares/auth.middleware.js";
 import { validacionesActualizarObraSocial } from "../../validators/pacientes.js";
 import { validarCampos } from "../../middlewares/validarCampos.js";
-import { cache, clearCache } from "../../middlewares/cache.middleware.js";
+import { cache } from "../../middlewares/cache.middleware.js";
 
 const router = express.Router();
 
@@ -40,7 +40,6 @@ router.patch(
   verificarRol(3),
   validacionesActualizarObraSocial,
   validarCampos,
-  clearCache("pacientes"),
   pacientesController.actualizarObraSocial,
 );
 

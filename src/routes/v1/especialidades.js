@@ -4,7 +4,7 @@ import {
   verificarToken,
   verificarRol,
 } from "../../middlewares/auth.middleware.js";
-import { cache, clearCache } from "../../middlewares/cache.middleware.js";
+import { cache } from "../../middlewares/cache.middleware.js";
 
 const router = express.Router();
 const especialidadController = new EspecialidadController();
@@ -29,7 +29,6 @@ router.post(
   "/",
   verificarToken,
   verificarRol(3),
-  clearCache("especialidades"),
   especialidadController.create,
 );
 
@@ -37,7 +36,6 @@ router.put(
   "/:id",
   verificarToken,
   verificarRol(3),
-  clearCache("especialidades"),
   especialidadController.update,
 );
 
@@ -45,7 +43,6 @@ router.delete(
   "/:id",
   verificarToken,
   verificarRol(3),
-  clearCache("especialidades"),
   especialidadController.remove,
 );
 

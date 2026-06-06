@@ -75,7 +75,6 @@ export const subirFoto = async (req, res) => {
 
     await usuariosService.actualizarFoto(id_usuario, nuevoPath);
 
-    // Devolvemos solo los campos necesarios, sin datos internos
     res.status(200).json({
       estado: true,
       msg: "Foto de perfil actualizada correctamente",

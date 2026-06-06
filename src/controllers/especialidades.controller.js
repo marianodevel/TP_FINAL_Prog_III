@@ -1,10 +1,9 @@
 import EspecialidadService from "../services/especialidades.service.js";
 
-export default class EspecialidadesController{
-
-  constructor(){ 
-    this.especialidades = new EspecialidadService()
-  };
+export default class EspecialidadesController {
+  constructor() {
+    this.especialidades = new EspecialidadService();
+  }
 
   getAll = async (req, res) => {
     try {
@@ -41,7 +40,9 @@ export default class EspecialidadesController{
       }
 
       const newId = await this.especialidades.createEspecialidad(nombre);
-      res.status(201).json({ message: "Especialidad creada con éxito", id: newId });
+      res
+        .status(201)
+        .json({ message: "Especialidad creada con éxito", id: newId });
     } catch (error) {
       console.error(error);
       if (error.code === "ER_DUP_ENTRY") {
@@ -60,17 +61,26 @@ export default class EspecialidadesController{
         return res.status(400).json({ message: "El nombre es obligatorio" });
       }
 
-      const affectedRows = await this.especialidades.updateEspecialidad(id, nombre);
+      const affectedRows = await this.especialidades.updateEspecialidad(
+        id,
+        nombre,
+      );
 
       if (affectedRows === 0) {
-        return res.status(404).json({ message: "Especialidad no encontrada o sin cambios" });
+        return res
+          .status(404)
+          .json({ message: "Especialidad no encontrada o sin cambios" });
       }
 
-      res.status(200).json({ message: "Especialidad actualizada correctamente" });
+      res
+        .status(200)
+        .json({ message: "Especialidad actualizada correctamente" });
     } catch (error) {
       console.error(error);
       if (error.code === "ER_DUP_ENTRY") {
-        return res.status(409).json({ message: "El nombre de la especialidad ya está en uso" });
+        return res
+          .status(409)
+          .json({ message: "El nombre de la especialidad ya está en uso" });
       }
       res.status(500).json({ message: "Error interno del servidor" });
     }
@@ -85,7 +95,11 @@ export default class EspecialidadesController{
         return res.status(404).json({ message: "Especialidad no encontrada" });
       }
 
-      res.status(200).json({ message: "Especialidad eliminada correctamente (borrado lógico)" });
+      res
+        .status(200)
+        .json({
+          message: "Especialidad eliminada correctamente (borrado lógico)",
+        });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Error interno del servidor" });

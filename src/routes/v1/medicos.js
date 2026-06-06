@@ -6,7 +6,7 @@ import {
 } from "../../middlewares/auth.middleware.js";
 import { validacionesUpdateMedico } from "../../validators/medicos.js";
 import { validarCampos } from "../../middlewares/validarCampos.js";
-import { cache, clearCache } from "../../middlewares/cache.middleware.js";
+import { cache } from "../../middlewares/cache.middleware.js";
 
 const router = express.Router();
 
@@ -32,7 +32,6 @@ router.put(
   verificarRol(3),
   validacionesUpdateMedico,
   validarCampos,
-  clearCache("medicos"),
   medicosController.update,
 );
 
@@ -48,8 +47,6 @@ router.post(
   "/:id_medico/obras-sociales",
   verificarToken,
   verificarRol(3),
-  clearCache("medicos_obras_sociales"),
-  clearCache("medicos"),
   medicosController.asociarObraSocial,
 );
 
@@ -57,8 +54,6 @@ router.delete(
   "/:id_medico/obras-sociales/:id_obra_social",
   verificarToken,
   verificarRol(3),
-  clearCache("medicos_obras_sociales"),
-  clearCache("medicos"),
   medicosController.desasociarObraSocial,
 );
 

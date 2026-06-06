@@ -6,7 +6,7 @@ import {
   verificarToken,
   verificarRol,
 } from "../../middlewares/auth.middleware.js";
-import { cache, clearCache } from "../../middlewares/cache.middleware.js";
+import { cache } from "../../middlewares/cache.middleware.js";
 
 const router = express.Router();
 
@@ -32,7 +32,6 @@ router.post(
   verificarRol(3),
   validacionesObraSocial,
   validarCampos,
-  clearCache("obras_sociales"),
   obraSocialController.create,
 );
 
@@ -42,7 +41,6 @@ router.put(
   verificarRol(3),
   validacionesObraSocial,
   validarCampos,
-  clearCache("obras_sociales"),
   obraSocialController.update,
 );
 
@@ -50,7 +48,6 @@ router.delete(
   "/:id_obra_social",
   verificarToken,
   verificarRol(3),
-  clearCache("obras_sociales"),
   obraSocialController.remove,
 );
 

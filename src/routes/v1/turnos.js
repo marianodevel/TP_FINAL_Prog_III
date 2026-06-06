@@ -9,7 +9,7 @@ import {
   validacionesTurnoAdmin,
 } from "../../validators/turnos.js";
 import { validarCampos } from "../../middlewares/validarCampos.js";
-import { cache, clearCache } from "../../middlewares/cache.middleware.js";
+import { cache } from "../../middlewares/cache.middleware.js";
 
 const router = express.Router();
 
@@ -25,8 +25,6 @@ router.patch(
   "/:id_turno/atendido",
   verificarToken,
   verificarRol(1),
-  clearCache("turnos"),
-  clearCache("estadisticas"),
   turnosController.marcarAtendido,
 );
 
@@ -44,8 +42,6 @@ router.post(
   verificarRol(2),
   validacionesTurnoPaciente,
   validarCampos,
-  clearCache("turnos"),
-  clearCache("estadisticas"),
   turnosController.createTurnoPaciente,
 );
 
@@ -71,8 +67,6 @@ router.post(
   verificarRol(3),
   validacionesTurnoAdmin,
   validarCampos,
-  clearCache("turnos"),
-  clearCache("estadisticas"),
   turnosController.createTurnoAdmin,
 );
 
@@ -80,8 +74,6 @@ router.delete(
   "/:id_turno",
   verificarToken,
   verificarRol(3),
-  clearCache("turnos"),
-  clearCache("estadisticas"),
   turnosController.deleteTurno,
 );
 
