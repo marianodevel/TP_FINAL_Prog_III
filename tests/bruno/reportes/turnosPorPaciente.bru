@@ -1,0 +1,19 @@
+meta {
+  name: turnosPorPaciente
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{base_url}}/reportes/turnos/paciente/1
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+settings {
+  encodeUrl: true
+}

@@ -1,0 +1,19 @@
+meta {
+  name: misTurnosMedico
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{base_url}}/reportes/turnos/medico/me
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_medico}}
+}
+
+settings {
+  encodeUrl: true
+}
