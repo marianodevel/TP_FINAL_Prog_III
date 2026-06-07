@@ -25,3 +25,8 @@ export default class EspecialidadesService {
     return this.especialidades.deleteEspecialidad(id);
   };
 }
+
+// Exportaciones nombradas para uso directo en otros módulos
+const _instance = new EspecialidadesService();
+export const getEspecialidadById = (id) => _instance.getEspecialidadById(id);
+

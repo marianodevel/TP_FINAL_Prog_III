@@ -1,0 +1,19 @@
+meta {
+  name: turnosPorEspecialidad
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{base_url}}/reportes/turnos/especialidad/1
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+settings {
+  encodeUrl: true
+}
