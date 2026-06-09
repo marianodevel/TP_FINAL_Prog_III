@@ -3,7 +3,7 @@ import pool from "../connection.js";
 export default class TurnosRepository {
   getAll = async () => {
     const [rows] = await pool.query(
-      `SELECT tr.id_turno_reserva, tr.fecha_hora, tr.valor_total, tr.atentido, tr.activo,
+      `SELECT tr.id_turno_reserva, tr.fecha_hora, tr.valor_total, tr.atendido, tr.activo,
               m.id_medico, um.apellido AS medico_apellido, um.nombres AS medico_nombres,
               e.nombre AS especialidad,
               p.id_paciente, up.apellido AS paciente_apellido, up.nombres AS paciente_nombres,
@@ -23,7 +23,7 @@ export default class TurnosRepository {
 
   getById = async (id) => {
     const [rows] = await pool.query(
-      `SELECT tr.id_turno_reserva, tr.fecha_hora, tr.valor_total, tr.atentido, tr.activo,
+      `SELECT tr.id_turno_reserva, tr.fecha_hora, tr.valor_total, tr.atendido, tr.activo,
               m.id_medico, um.apellido AS medico_apellido, um.nombres AS medico_nombres,
               e.nombre AS especialidad,
               p.id_paciente, up.apellido AS paciente_apellido, up.nombres AS paciente_nombres,
@@ -43,7 +43,7 @@ export default class TurnosRepository {
 
   getByMedico = async (id_medico) => {
     const [rows] = await pool.query(
-      `SELECT tr.id_turno_reserva, tr.fecha_hora, tr.valor_total, tr.atentido,
+      `SELECT tr.id_turno_reserva, tr.fecha_hora, tr.valor_total, tr.atendido,
               p.id_paciente, up.apellido AS paciente_apellido, up.nombres AS paciente_nombres,
               os.id_obra_social, os.nombre AS obra_social
        FROM turnos_reservas tr
@@ -59,7 +59,7 @@ export default class TurnosRepository {
 
   getByPaciente = async (id_paciente) => {
     const [rows] = await pool.query(
-      `SELECT tr.id_turno_reserva, tr.fecha_hora, tr.valor_total, tr.atentido,
+      `SELECT tr.id_turno_reserva, tr.fecha_hora, tr.valor_total, tr.atendido,
               m.id_medico, um.apellido AS medico_apellido, um.nombres AS medico_nombres,
               e.nombre AS especialidad,
               os.id_obra_social, os.nombre AS obra_social
@@ -105,7 +105,7 @@ export default class TurnosRepository {
     const { id_medico, id_paciente, id_obra_social, fecha_hora, valor_total } =
       data;
     const [result] = await db.query(
-      `INSERT INTO turnos_reservas (id_medico, id_paciente, id_obra_social, fecha_hora, valor_total, atentido)
+      `INSERT INTO turnos_reservas (id_medico, id_paciente, id_obra_social, fecha_hora, valor_total, atendido)
        VALUES (?, ?, ?, ?, ?, 0)`,
       [id_medico, id_paciente, id_obra_social, fecha_hora, valor_total],
     );
@@ -114,7 +114,7 @@ export default class TurnosRepository {
 
   marcarAtendido = async (id_turno, id_medico) => {
     const [result] = await pool.query(
-      `UPDATE turnos_reservas SET atentido = 1
+      `UPDATE turnos_reservas SET atendido = 1
        WHERE id_turno_reserva = ? AND id_medico = ? AND activo = 1`,
       [id_turno, id_medico],
     );
@@ -129,8 +129,6 @@ export default class TurnosRepository {
     return result.affectedRows;
   };
 
-  // ── Métodos para reportes ─────────────────────────────────────────────────
-
   getByFiltros = async ({
     id_medico,
     id_paciente,
@@ -140,7 +138,7 @@ export default class TurnosRepository {
     fecha_hasta,
   }) => {
     let query = `
-      SELECT tr.id_turno_reserva, tr.fecha_hora, tr.valor_total, tr.atentido,
+      SELECT tr.id_turno_reserva, tr.fecha_hora, tr.valor_total, tr.atendido,
              m.id_medico, um.apellido AS medico_apellido, um.nombres AS medico_nombres,
              e.id_especialidad, e.nombre AS especialidad,
              p.id_paciente, up.apellido AS paciente_apellido, up.nombres AS paciente_nombres,

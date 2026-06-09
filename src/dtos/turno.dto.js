@@ -2,7 +2,7 @@ export const toTurnoDTO = (turno) => ({
   id_turno_reserva: turno.id_turno_reserva,
   fecha_hora: turno.fecha_hora,
   valor_total: parseFloat(turno.valor_total),
-  atendido: turno.atentido === 1, // corrige el typo de la BD
+  atendido: turno.atendido === 1,
   medico: {
     id_medico: turno.id_medico,
     apellido: turno.medico_apellido,
