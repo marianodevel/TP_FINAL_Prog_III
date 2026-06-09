@@ -16,11 +16,11 @@ auth:bearer {
 
 body:json {
   {
-    "documento": "41000114",
-    "apellido": "Garcia",
-    "nombres": "Laura",
-    "email": "garlaur@correo.com",
-    "contrasenia": "garlaur",
+    "documento": "{{$timestamp}}",
+    "apellido": "Test",
+    "nombres": "Paciente",
+    "email": "paciente{{$timestamp}}@test.com",
+    "contrasenia": "test123",
     "id_obra_social": 1
   }
 }
