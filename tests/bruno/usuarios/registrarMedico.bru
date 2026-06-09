@@ -16,14 +16,14 @@ auth:bearer {
 
 body:json {
   {
-    "documento": "31000115",
-    "apellido": "Gomez",
-    "nombres": "Carlos",
-    "email": "gomcar@correo.com",
-    "contrasenia": "gomcar",
+    "documento": "9{{$timestamp}}",
+    "apellido": "Test",
+    "nombres": "Medico",
+    "email": "medico{{$timestamp}}@test.com",
+    "contrasenia": "test123",
     "id_especialidad": 1,
-    "matricula": 5000,
-    "descripcion": "Médico pediatra",
+    "matricula": {{$timestamp}},
+    "descripcion": "Médico de prueba",
     "valor_consulta": 5000.00
   }
 }
