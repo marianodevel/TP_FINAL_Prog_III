@@ -16,7 +16,6 @@ const parseFiltrosFecha = (query) => ({
   fecha_hasta: query.fecha_hasta || null,
 });
 
-// ── Reporte general ───────────────────────────────────────────────────────────
 export const informeTurnos = async (req, res) => {
   try {
     const { fecha_desde, fecha_hasta } = parseFiltrosFecha(req.query);
@@ -64,7 +63,6 @@ export const informeTurnosPorMedico = async (req, res) => {
       }
       id_medico = medico.id_medico;
     } else {
-      // Admin puede ver cualquier médico
       id_medico = req.params.id_medico;
     }
 

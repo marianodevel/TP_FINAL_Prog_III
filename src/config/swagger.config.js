@@ -24,7 +24,6 @@ const options = {
         },
       },
       schemas: {
-        // ── Auth ──────────────────────────────────────────
         LoginRequest: {
           type: "object",
           required: ["email", "contrasenia"],
@@ -48,7 +47,6 @@ const options = {
           },
         },
 
-        // ── Usuario (DTO) ─────────────────────────────────
         Usuario: {
           type: "object",
           properties: {
@@ -75,7 +73,6 @@ const options = {
           },
         },
 
-        // ── Obra Social ───────────────────────────────────
         ObraSocial: {
           type: "object",
           properties: {
@@ -103,7 +100,6 @@ const options = {
           },
         },
 
-        // ── Médico (DTO) ──────────────────────────────────
         Medico: {
           type: "object",
           properties: {
@@ -149,7 +145,6 @@ const options = {
           },
         },
 
-        // ── Paciente (DTO) ────────────────────────────────
         Paciente: {
           type: "object",
           properties: {
@@ -184,7 +179,6 @@ const options = {
           },
         },
 
-        // ── Turno (DTO) ───────────────────────────────────
         Turno: {
           type: "object",
           properties: {
@@ -248,7 +242,6 @@ const options = {
           },
         },
 
-        // ── Registro de usuarios ──────────────────────────
         RegistroPacienteRequest: {
           type: "object",
           required: [
@@ -310,7 +303,6 @@ const options = {
           },
         },
 
-        // ── Estadísticas ──────────────────────────────────
         EstadisticaEspecialidad: {
           type: "object",
           properties: {
@@ -354,7 +346,6 @@ const options = {
           },
         },
 
-        // ── Respuestas genéricas ──────────────────────────
         Error: {
           type: "object",
           properties: {
