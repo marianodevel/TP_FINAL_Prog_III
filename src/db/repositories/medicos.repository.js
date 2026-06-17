@@ -90,7 +90,6 @@ export default class MedicosRepository {
     return result.affectedRows;
   };
 
-  // Obras sociales de un médico
   getObrasSociales = async (id_medico) => {
     const [rows] = await pool.query(
       `SELECT os.id_obra_social, os.nombre, os.descripcion, os.porcentaje_descuento, os.es_particular
@@ -103,7 +102,6 @@ export default class MedicosRepository {
   };
 
   asociarObraSocial = async (id_medico, id_obra_social) => {
-    // Si ya existe (aunque inactiva) la reactiva, si no existe la crea
     const [existing] = await pool.query(
       `SELECT id_medico_obra_social FROM medicos_obras_sociales
        WHERE id_medico = ? AND id_obra_social = ?`,

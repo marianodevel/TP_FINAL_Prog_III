@@ -14,7 +14,6 @@ import { validarCampos } from "../../middlewares/validarCampos.js";
 
 const router = express.Router();
 
-// Registro — solo admin
 router.post(
   "/pacientes",
   verificarToken,
@@ -42,7 +41,6 @@ router.post(
   usuariosController.registrarAdmin,
 );
 
-// Upload de foto — cualquier usuario autenticado sube la suya
 router.patch(
   "/me/foto",
   verificarToken,

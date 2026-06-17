@@ -94,7 +94,6 @@ export const registrarAdmin = async (data) => {
 };
 
 export const actualizarFoto = async (id_usuario, nuevoPath) => {
-  // Eliminar foto anterior si existe
   const fotoAnterior = await usuariosRepo.getFotoPath(id_usuario);
   if (fotoAnterior) {
     const rutaAnterior = path.resolve(fotoAnterior);

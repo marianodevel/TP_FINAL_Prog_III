@@ -19,8 +19,6 @@ export const login = async (email, contrasenia) => {
     expiresIn: process.env.JWT_EXPIRES_IN || "8h",
   });
 
-  // Devolvemos el objeto completo para que el controller
-  // pueda aplicar el DTO con todos los campos necesarios
   return {
     token,
     usuario: {

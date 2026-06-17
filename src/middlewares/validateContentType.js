@@ -2,7 +2,6 @@ export const validateContentType = (req, res, next) => {
   if (["POST", "PUT", "PATCH"].includes(req.method)) {
     const contentType = req.headers["content-type"] || "";
 
-    // Permitir multipart/form-data (Multer) y application/json
     const esValido =
       contentType.includes("application/json") ||
       contentType.includes("multipart/form-data");

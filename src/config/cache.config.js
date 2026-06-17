@@ -3,7 +3,6 @@ import apicache from "apicache";
 const cache = apicache.middleware;
 const { clear } = apicache;
 
-// Solo cachear respuestas exitosas (2xx)
 apicache.options({
   statusCodes: {
     include: [200, 201],

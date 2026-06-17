@@ -22,7 +22,6 @@ export const verificarToken = (req, res, next) => {
   }
 };
 
-// ROL 1 = médico, ROL 2 = paciente, ROL 3 = administrador
 export const verificarRol = (...roles) => {
   return (req, res, next) => {
     if (!req.usuario) {
