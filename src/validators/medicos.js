@@ -1,6 +1,13 @@
-import { check } from "express-validator";
+import { check, param } from "express-validator";
+
+export const validarIdMedico = [
+    param('id_medico')
+        .isInt({min: 1})
+        .withMessage('El ID debe ser un entero positivo.')
+];
 
 export const validacionesUpdateMedico = [
+  ...validarIdMedico,
   check("id_especialidad")
     .notEmpty()
     .withMessage("La especialidad es obligatoria.")
@@ -20,4 +27,12 @@ export const validacionesUpdateMedico = [
     .withMessage("El valor de consulta es obligatorio.")
     .isDecimal()
     .withMessage("El valor de consulta debe ser un número decimal."),
+];
+
+export const validarDesasociarObraSocial = [
+  ...validarIdMedico,
+
+    param('id_obra_social')
+        .isInt({min: 1})
+        .withMessage('El ID debe ser un entero positivo.')
 ];

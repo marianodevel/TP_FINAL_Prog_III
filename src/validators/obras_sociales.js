@@ -1,4 +1,10 @@
-import { check } from "express-validator";
+import { check, param } from "express-validator";
+
+export const validarIdObraSocial = [
+    param('id_obra_social')
+        .isInt({min: 1})
+        .withMessage('El ID debe ser un entero positivo.')
+];
 
 export const validacionesObraSocial = [
     check('nombre')
