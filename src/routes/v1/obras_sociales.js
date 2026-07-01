@@ -1,7 +1,7 @@
 import express from "express";
 import { validarCampos } from "../../middlewares/validarCampos.js";
 import * as obraSocialController from "../../controllers/obras_sociales.controller.js";
-import { validacionesObraSocial } from "../../validators/obras_sociales.js";
+import { validacionesObraSocial, validarIdObraSocial } from "../../validators/obras_sociales.js";
 import {
   verificarToken,
   verificarRol,
@@ -22,6 +22,8 @@ router.get(
   "/:id_obra_social",
   verificarToken,
   verificarRol(2, 3),
+  validarIdObraSocial,
+  validarCampos,
   cache("10 minutes", "obras_sociales"),
   obraSocialController.getOne,
 );
@@ -39,6 +41,7 @@ router.put(
   "/:id_obra_social",
   verificarToken,
   verificarRol(3),
+  validarIdObraSocial,
   validacionesObraSocial,
   validarCampos,
   obraSocialController.update,
@@ -48,6 +51,8 @@ router.delete(
   "/:id_obra_social",
   verificarToken,
   verificarRol(3),
+  validarIdObraSocial,
+  validarCampos,
   obraSocialController.remove,
 );
 

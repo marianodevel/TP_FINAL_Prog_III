@@ -4,7 +4,7 @@ import {
   verificarToken,
   verificarRol,
 } from "../../middlewares/auth.middleware.js";
-import { validacionesActualizarObraSocial } from "../../validators/pacientes.js";
+import { validacionesActualizarObraSocial, validarIdPaciente } from "../../validators/pacientes.js";
 import { validarCampos } from "../../middlewares/validarCampos.js";
 import { cache } from "../../middlewares/cache.middleware.js";
 
@@ -30,6 +30,8 @@ router.get(
   "/:id_paciente",
   verificarToken,
   verificarRol(3),
+  validarIdPaciente,
+  validarCampos,
   cache("2 minutes", "pacientes"),
   pacientesController.getOne,
 );

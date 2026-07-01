@@ -4,7 +4,7 @@ import {
   verificarToken,
   verificarRol,
 } from "../../middlewares/auth.middleware.js";
-import { validacionesUpdateMedico } from "../../validators/medicos.js";
+import { validacionesUpdateMedico, validarDesasociarObraSocial, validarIdMedico } from "../../validators/medicos.js";
 import { validarCampos } from "../../middlewares/validarCampos.js";
 import { cache } from "../../middlewares/cache.middleware.js";
 
@@ -22,6 +22,8 @@ router.get(
   "/:id_medico",
   verificarToken,
   verificarRol(2, 3),
+  validarIdMedico,
+  validarCampos,
   cache("5 minutes", "medicos"),
   medicosController.getOne,
 );
@@ -39,6 +41,8 @@ router.get(
   "/:id_medico/obras-sociales",
   verificarToken,
   verificarRol(3),
+  validarIdMedico,
+  validarCampos,
   cache("5 minutes", "medicos_obras_sociales"),
   medicosController.getObrasSociales,
 );
@@ -47,6 +51,8 @@ router.post(
   "/:id_medico/obras-sociales",
   verificarToken,
   verificarRol(3),
+  validarIdMedico,
+  validarCampos,
   medicosController.asociarObraSocial,
 );
 
@@ -54,6 +60,8 @@ router.delete(
   "/:id_medico/obras-sociales/:id_obra_social",
   verificarToken,
   verificarRol(3),
+  validarDesasociarObraSocial,
+  validarCampos,
   medicosController.desasociarObraSocial,
 );
 

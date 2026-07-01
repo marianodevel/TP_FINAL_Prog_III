@@ -7,6 +7,7 @@ import {
 import {
   validacionesTurnoPaciente,
   validacionesTurnoAdmin,
+  validarIdTurno,
 } from "../../validators/turnos.js";
 import { validarCampos } from "../../middlewares/validarCampos.js";
 import { cache } from "../../middlewares/cache.middleware.js";
@@ -25,6 +26,8 @@ router.patch(
   "/:id_turno/atendido",
   verificarToken,
   verificarRol(1),
+  validarIdTurno,
+  validarCampos,
   turnosController.marcarAtendido,
 );
 
@@ -57,6 +60,8 @@ router.get(
   "/:id_turno",
   verificarToken,
   verificarRol(3),
+  validarIdTurno,
+  validarCampos,
   cache("1 minute", "turnos"),
   turnosController.getOne,
 );
@@ -74,6 +79,8 @@ router.delete(
   "/:id_turno",
   verificarToken,
   verificarRol(3),
+  validarIdTurno,
+  validarCampos,
   turnosController.deleteTurno,
 );
 

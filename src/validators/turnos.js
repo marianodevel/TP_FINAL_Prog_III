@@ -1,4 +1,10 @@
-import { check } from "express-validator";
+import { check, param } from "express-validator";
+
+export const validarIdTurno = [
+    param('id_turno')
+        .isInt({min: 1})
+        .withMessage('El ID debe ser un entero positivo.')
+];
 
 export const validacionesTurnoPaciente = [
   check("id_medico")
